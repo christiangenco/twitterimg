@@ -1,0 +1,39 @@
+<script src="https://platform.twitter.com/widgets.js"></script>
+<div id="root"></div>
+<script>
+  window.twttr.widgets.createTweet("992198610304417792", document.getElementById("root"))
+</script>
+
+<!-- <script>
+  const root = document.getElementById("root");
+  window.twttr = (function(d, s, id) {
+    console.log("loading twitter")
+    // var js,
+    //   fjs = d.getElementsByTagName(s)[0],
+    //   t = window.twttr || {};
+    // if (d.getElementById(id)) return t;
+    const t = {};
+    const js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    // fjs.parentNode.insertBefore(js, fjs);
+    root.parentNode.append(js);
+
+    t._e = [];
+    t.ready = function(f) {
+      t._e.push(f);
+
+      t.widgets
+        .createTweet("992198610304417792", root, {
+          theme: "dark"
+        })
+        .then(() => {
+          // console.log("created tweet");
+        });
+
+      resolve();
+    };
+
+    return t;
+  })(document, "script", "twitter-wjs");
+</script> -->

@@ -1,0 +1,23 @@
+<html>
+
+<head>
+  <script id="widget" src="https://platform.twitter.com/widgets.js"></script>
+  <script type="text/javascript">
+    window.a = "test";
+    document.a = "test2";
+    const a = "poop"
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script>
+    window.twttr.widgets.createTweet(
+      "992198610304417792",
+      document.getElementById("root")
+    );
+  </script>
+</body>
+
+</html>
