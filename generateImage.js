@@ -1,13 +1,6 @@
 const puppeteer = require("puppeteer");
 
-const tweetId = "992198610304417792";
-const outputFilename = `${tweetId}.png`;
-
-const sleep = ms => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-};
-
-(async () => {
+export default async ({ tweetId, outputFilename }) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
@@ -62,4 +55,4 @@ const sleep = ms => {
   await page.screenshot({ path: outputFilename });
 
   await browser.close();
-})();
+};
