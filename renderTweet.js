@@ -31,7 +31,9 @@ const sleep = ms => {
         window.twttr.widgets.createTweet(
           "${tweetId}",
           document.getElementById("root")
-        );
+        ).then(() => {
+          document.body.classList.add("loaded");
+        });
       </script>
     </body>
 
@@ -39,23 +41,22 @@ const sleep = ms => {
     { waitUntil: "domcontentloaded" }
   );
 
-  const { width, height } = await page.evaluate(async () => {
+  const { width, height, iframe } = await page.evaluate(async () => {
     const sleep = ms => {
       return new Promise(resolve => setTimeout(resolve, ms));
     };
-
     const root = document.querySelector("#root");
-
     while (root.clientHeight === 0) await sleep(100);
-    while (document.readyState !== "complete") await sleep(100);
-    await sleep(100);
-
-    return {
-      width: root.clientWidth,
-      height: root.clientHeight,
-      deviceScaleFactor: window.devicePixelRatio
-    };
+    return { width: root.clientWidth, height: root.clientHeight };
   });
+
+  const res = await page.evaluate(async () => {
+    while (!document.body.classList.contains("loaded")) await sleep(100);
+    return "loaded";
+    // const iframe = document.querySelector("iframe");
+  });
+
+  console.log(res);
 
   await page.setViewport({ width: 500, height, deviceScaleFactor: 2 });
   await page.screenshot({ path: outputFilename });

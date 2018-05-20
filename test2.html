@@ -26,7 +26,16 @@
     window.twttr.widgets.createTweet(
       "992198610304417792",
       document.getElementById("root")
-    );
+    ).then(() => {
+      document.body.classList.add("loaded")
+    });
+
+    // window.iframe = document.querySelector("iframe");
+    // // resolve({ width: root.clientWidth, height: root.clientHeight, iframe });
+    //
+    // window.iframe.addEventListener("load", () =>
+    //   console.log("loaded")
+    // );
   </script>
 </body>
 
