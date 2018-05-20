@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 
-export default async ({ tweetId, outputFilename }) => {
+module.exports = async ({ tweetId, outputFilename }) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
@@ -44,6 +44,9 @@ export default async ({ tweetId, outputFilename }) => {
   });
 
   const res = await page.evaluate(async () => {
+    const sleep = ms => {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    };
     while (!document.body.classList.contains("loaded")) await sleep(100);
     return "loaded";
     // const iframe = document.querySelector("iframe");

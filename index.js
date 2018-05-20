@@ -1,36 +1,23 @@
-const Koa = require("koa");
-const send = require("koa-send");
+const next = require("next");
+const server = require("./server");
 
-const generateImage = require("./generateImage");
+const port = parseInt(process.env.PORT, 10) || 3000;
+const dev = process.env.NODE_ENV !== "production";
+const app = next({ dev });
+const handle = app.getRequestHandler();
 
-const app = new Koa();
+app.prepare().then(() => {
+  router.get("*", async ctx => {
+    await handle(ctx.req, ctx.res);
+    ctx.respond = false;
+  });
 
-app.use(async ctx => {
-  const { tweetId } = ctx.query;
-  // const { host, pathname } = Url.parse(url);
+  server.use(async (ctx, next) => {
+    ctx.res.statusCode = 200;
+    await next();
+  });
 
-  if (tweetId) {
-    const outputFilename = `/tmp/${tweetId}.png`;
-
-    await generateImage({ tweetId, outputFilename });
-    await send(ctx, path, { root: "/tmp" });
-  } else {
-    ctx.body = "missing tweetId query";
-  }
-
-  // if (fs.existsSync(dest)) {
-  //   await send(ctx, path, { root: rootDir });
-  // } else {
-  //   const res = await axios({ url, responseType: "stream" });
-  //   res.data.pipe(fs.createWriteStream(dest));
-  //   await new Promise((resolve, reject) => res.data.on("end", () => resolve()));
-  //
-  //   await send(ctx, path, { root: rootDir });
-  // }
+  server.listen(port, () => {
+    console.log(`> Ready on http://localhost:${port}`);
+  });
 });
-
-const tweetId = "992198610304417792";
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT);
-console.log(`http://localhost:${PORT}/`);
