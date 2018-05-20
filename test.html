@@ -1,39 +1,42 @@
-<script src="https://platform.twitter.com/widgets.js"></script>
-<div id="root"></div>
-<script>
-  window.twttr.widgets.createTweet("992198610304417792", document.getElementById("root"))
-</script>
+<html>
 
-<!-- <script>
-  const root = document.getElementById("root");
-  window.twttr = (function(d, s, id) {
-    console.log("loading twitter")
-    // var js,
-    //   fjs = d.getElementsByTagName(s)[0],
-    //   t = window.twttr || {};
-    // if (d.getElementById(id)) return t;
-    const t = {};
-    const js = d.createElement(s);
-    js.id = id;
-    js.src = "https://platform.twitter.com/widgets.js";
-    // fjs.parentNode.insertBefore(js, fjs);
-    root.parentNode.append(js);
+<head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0
+    }
 
-    t._e = [];
-    t.ready = function(f) {
-      t._e.push(f);
+    iframe {
+      margin-top: 0 !important;
+    }
+  </style>
+  <script id="widget" src="https://platform.twitter.com/widgets.js"></script>
+  <script type="text/javascript">
+    window.a = "test";
+    document.a = "test2";
+    const a = "poop"
+  </script>
+</head>
 
-      t.widgets
-        .createTweet("992198610304417792", root, {
-          theme: "dark"
-        })
-        .then(() => {
-          // console.log("created tweet");
-        });
+<body>
+  <div id="root"></div>
 
-      resolve();
-    };
+  <script>
+    window.twttr.widgets.createTweet(
+      "992198610304417792",
+      document.getElementById("root")
+    ).then(() => {
+      document.body.classList.add("loaded")
+    });
 
-    return t;
-  })(document, "script", "twitter-wjs");
-</script> -->
+    // window.iframe = document.querySelector("iframe");
+    // // resolve({ width: root.clientWidth, height: root.clientHeight, iframe });
+    //
+    // window.iframe.addEventListener("load", () =>
+    //   console.log("loaded")
+    // );
+  </script>
+</body>
+
+</html>
